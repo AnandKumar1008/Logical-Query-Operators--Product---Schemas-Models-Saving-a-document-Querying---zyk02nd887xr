@@ -49,8 +49,10 @@ router.get("/nor", async (req, res) => {
   try {
     //write your code here for Logical '$nor' operator
     const products = await Product.find({
-      $nor: [{ name: "product1" }, { price: 2000 }],
+      $nor: [{ price: 2000 }, { name: "product1" }],
     });
+
+    res.send(products);
   } catch (error) {
     res.status(404).send(error);
   }
