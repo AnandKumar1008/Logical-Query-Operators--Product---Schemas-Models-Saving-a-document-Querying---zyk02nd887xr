@@ -4,40 +4,53 @@
 // $nor:Joins query clauses with a logical NOR returns all documents that fail to match both clauses.
 // $or:Joins query clauses with a logical OR returns all documents that match the conditions of either clause.
 
-const router = require('express').Router();
-const Product = require('../models/productModels');
+const router = require("express").Router();
+const Product = require("../models/productModels");
 
 //Get all products where price is 2000 or name is 'product1'
-router.get('/or', async (req, res) => {
+router.get("/or", async (req, res) => {
   try {
     //write your code here for Logical '$or' operator
+    const products = Product.find({
+      $or: [{ name: "product1" }, { price: 2000 }],
+    });
+    res.send(products);
   } catch (error) {
     res.status(404).send(error);
   }
 });
 
 //Get all products where price is 2000 and name is 'product1'
-router.get('/and', async (req, res) => {
+router.get("/and", async (req, res) => {
   try {
     //write your code here for Logical '$and' operator
+    const products = Product.find({
+      $and: [{ price: 2000 }, { name: "product1" }],
+    });
+    res.send(products);
   } catch (error) {
     res.status(404).send(error);
   }
 });
 
 //Get all products where price is not greater than 2000 (i.e. less than or equal to 2000)
-router.get('/not', async (req, res) => {
+router.get("/not", async (req, res) => {
   try {
     //write your code here for Logical '$not' operator
+    const products = Product.find({ $not: { $gt: 2000 } });
+    res.send(products);
   } catch (error) {
     res.status(404).send(error);
   }
 });
 
 //Get all products except those where price is 2000 or name is 'product1'
-router.get('/nor', async (req, res) => {
+router.get("/nor", async (req, res) => {
   try {
     //write your code here for Logical '$nor' operator
+    const products = Product.find({
+      $nor: [{ name: "product1" }, { price: 2000 }],
+    });
   } catch (error) {
     res.status(404).send(error);
   }
