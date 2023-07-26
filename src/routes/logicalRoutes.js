@@ -11,7 +11,7 @@ const Product = require("../models/productModels");
 router.get("/or", async (req, res) => {
   try {
     //write your code here for Logical '$or' operator
-    const products = Product.find({
+    const products = await Product.find({
       $or: [{ name: "product1" }, { price: 2000 }],
     });
     res.send(products);
@@ -24,7 +24,7 @@ router.get("/or", async (req, res) => {
 router.get("/and", async (req, res) => {
   try {
     //write your code here for Logical '$and' operator
-    const products = Product.find({
+    const products = await Product.find({
       $and: [{ price: 2000 }, { name: "product1" }],
     });
     res.send(products);
@@ -37,7 +37,7 @@ router.get("/and", async (req, res) => {
 router.get("/not", async (req, res) => {
   try {
     //write your code here for Logical '$not' operator
-    const products = Product.find({ $not: { $gt: 2000 } });
+    const products = await Product.find({ $not: { $gt: 2000 } });
     res.send(products);
   } catch (error) {
     res.status(404).send(error);
@@ -48,7 +48,7 @@ router.get("/not", async (req, res) => {
 router.get("/nor", async (req, res) => {
   try {
     //write your code here for Logical '$nor' operator
-    const products = Product.find({
+    const products = await Product.find({
       $nor: [{ name: "product1" }, { price: 2000 }],
     });
   } catch (error) {
